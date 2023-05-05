@@ -66,7 +66,7 @@ export default class RentReader implements FileReaderInterface {
             email: authorEmail,
             type: authorType as UserType,
             password: authorPassword,
-            avatar: this.isFiledEmpty(authorAvatar) ? undefined :authorAvatar,
+            avatar: this.isFiledEmpty(authorAvatar) ? undefined : authorAvatar,
           },
           commentsNumber: Number(commentsNumber),
           coordinates: {
