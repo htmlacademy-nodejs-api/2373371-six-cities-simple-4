@@ -55,23 +55,23 @@ export default class RentReader implements FileReaderInterface {
           preview,
           images: parsedImages,
           isPremium: !this.isFiledEmpty(isPremium),
-          rating: this.getNumber(rating),
+          rating: Number(rating),
           type: type as RentType,
-          roomsNumber: this.getNumber(roomsNumber),
-          guestsNumber: this.getNumber(guestsNumber),
-          price: this.getNumber(price),
+          roomsNumber: Number(roomsNumber),
+          guestsNumber: Number(guestsNumber),
+          price: Number(price),
           conveniences: parsedConveniences as Conveniences[],
           author: {
             name: authorName,
             email: authorEmail,
             type: authorType as UserType,
             password: authorPassword,
-            avatar: this.isFiledEmpty(authorAvatar) ? undefined : authorAvatar,
+            avatar: this.isFiledEmpty(authorAvatar) ? undefined :authorAvatar,
           },
-          commentsNumber: this.getNumber(commentsNumber),
+          commentsNumber: Number(commentsNumber),
           coordinates: {
-            latitude: this.getNumber(latitude),
-            longitude: this.getNumber(longitude),
+            latitude: Number(latitude),
+            longitude: Number(longitude),
           },
         };
       });
@@ -83,9 +83,5 @@ export default class RentReader implements FileReaderInterface {
 
   private parseGroup(group: string): string[] {
     return group.split(';');
-  }
-
-  private getNumber(field: string): number {
-    return Number(field);
   }
 }
