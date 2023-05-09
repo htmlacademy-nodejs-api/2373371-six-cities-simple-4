@@ -3,3 +3,5 @@ export enum Command {
   Version = '--version',
   Import = '--import',
 }
+
+export const COMMANDS_DIR_PATH = 'core/cli-commands';
