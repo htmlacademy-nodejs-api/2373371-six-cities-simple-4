@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import CLIApplication from './app/cli.js';
-import { generateCommands } from './helpers/generate-commands.js';
+import { generateCommands } from './helpers/index.js';
 
 const applicationManager = new CLIApplication();
 
