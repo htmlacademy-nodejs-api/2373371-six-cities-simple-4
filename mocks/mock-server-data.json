@@ -1,0 +1,47 @@
+{
+  "api": {
+    "names": [
+      "Luxury 2BR Apt: Views, Amenities, Location!",
+      "Cozy Cottage: Nature Lovers' Retreat.",
+      "Modern Loft: Trendy Living, Urban Vibes!",
+      "Spacious Home: Garden, Relaxation, Gatherings.",
+      "Elegant Penthouse: Ocean Views, Luxury!",
+      "Gated Townhouse: Privacy, Security, Style.",
+      "Charming Studio: History, Convenience, Comfort."
+    ],
+    "descriptions": [
+      "Beautifully renovated apartment with stunning city skyline views.",
+      "Quaint cottage nestled in a serene countryside setting.",
+      "Contemporary loft with floor-to-ceiling windows and modern amenities.",
+      "Spacious family home with a large backyard for outdoor activities.",
+      "Luxurious penthouse featuring high-end finishes and breathtaking ocean vistas.",
+      "Secure gated community offering townhouses with access to exclusive amenities.",
+      "Cozy studio in a historic building, perfect for urban living on a budget."
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "previews": [
+      "https://apollo-singapore.akamaized.net/v1/files/cymdexxbhhge1-IN/image;s=272x0",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMPGmgp_fBC6o2CjZPd1AaZ77tR-qgVYYLrA&usqp=CAU",
+      "https://content.jdmagicbox.com/comp/ludhiana/l1/0161px161.x161.170927033845.d7l1/catalogue/centra-greens-pakhowal-road-ludhiana-1nwyskk79w.jpg"
+    ],
+    "images": [
+      "https://is1-2.housingcdn.com/01c16c28/0bcbe595ad663142e03013c1d241cfc7/v0/fs/1_bhk_apartment-for-rent-thakkarwal-Ludhiana-hall.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMPGmgp_fBC6o2CjZPd1AaZ77tR-qgVYYLrA&usqp=CAU",
+      "https://content.jdmagicbox.com/comp/ludhiana/l1/0161px161.x161.170927033845.d7l1/catalogue/centra-greens-pakhowal-road-ludhiana-1nwyskk79w.jpg",
+      "https://is1-3.housingcdn.com/01c16c28/a7b99a2d17334ebbf22fe39ac9a71ef5/v0/large/3_bhk_independent_builder_floor-for-rent-model_town_ludhiana-Ludhiana-hall.jpg"
+    ],
+    "authors": [
+      "923142",
+      "737769",
+      "097211",
+      "021269"
+    ]
+  }
+}
