@@ -1,5 +1,4 @@
 import { Cities } from './city.type.js';
-import { User } from './user.type.js';
 
 export enum RentType {
   Apartment = 'apartment',
@@ -9,7 +8,7 @@ export enum RentType {
 }
 
 export type Conveniences =
-  'Breakfast'
+  | 'Breakfast'
   | 'Air conditioning'
   | 'Laptop friendly workspace'
   | 'Baby seat'
@@ -36,7 +35,7 @@ export type RentOffer = {
   guestsNumber: number;
   price: number;
   conveniences: Conveniences[];
-  author: User;
+  authorId: string;
   commentsNumber: number;
   coordinates: Coordinates;
 }
