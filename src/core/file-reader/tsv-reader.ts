@@ -1,8 +1,9 @@
 import { FileReaderInterface } from './file-reader.interface.js';
 import EventEmitter from 'node:events';
 import { createReadStream } from 'node:fs';
+import { KB16 } from '../../constants/cli';
 
-const CHUNK_SIZE = 16384; // 16KB
+const CHUNK_SIZE = KB16; // 16KB
 
 export default class TSVReader extends EventEmitter implements FileReaderInterface {
 
