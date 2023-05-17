@@ -9,8 +9,8 @@ export class Application {
   constructor(
     @inject(Service.Logger) private readonly logger: LoggerInterface,
     @inject(Service.Config) private readonly config: ConfigInterface<RestSchema>,
-  ) {
-  }
+  ) {}
+
   init () {
     this.logger.info('init application');
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);

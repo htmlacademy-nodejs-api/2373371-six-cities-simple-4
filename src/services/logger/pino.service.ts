@@ -9,6 +9,7 @@ export class PinoService implements LoggerInterface {
   constructor() {
     this.logger = pino();
   }
+
   info(message: string, ...args: unknown[]) {
     this.logger.info(message, ...args);
   }
