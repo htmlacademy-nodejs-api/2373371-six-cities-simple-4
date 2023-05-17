@@ -1,7 +1,7 @@
 import { FileWriterInterface } from './file-writer.interface.js';
 import { WriteStream } from 'node:fs';
 import { createWriteStream } from 'node:fs';
-import { KB64 } from '../../constants/cli';
+import { KB64 } from '../../constants/cli.js';
 
 const CHUNK_SIZE = KB64; // 64KB
 
