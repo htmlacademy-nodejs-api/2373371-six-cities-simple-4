@@ -1,48 +1,76 @@
-import { User, UserType } from '../../types/user.type.js';
-import typegoose, { defaultClasses, getModelForClass, modelOptions } from '@typegoose/typegoose';
-import { createSHA256 } from '../../helpers/index.js';
+import typegoose, { defaultClasses, getModelForClass, modelOptions, Ref } from '@typegoose/typegoose';
+import { Coordinates, RentType } from '../../types/rent-offer.type.js';
+import { Convenience } from '../../types/convenience.type.js';
+import { UserEntity } from '../user/user.entity.js';
 
 const { prop } = typegoose;
 
-export interface UserEntity extends defaultClasses.Base {}
+export interface OfferEntity extends defaultClasses.Base {}
 
 @modelOptions({
   schemaOptions: {
-    collection: 'users'
+    collection: 'offers'
   }
 })
-export class UserEntity extends defaultClasses.TimeStamps implements User {
-  @prop({ required: true, default: '' })
+export class OfferEntity extends defaultClasses.TimeStamps {
+  @prop({trim: true, required: true})
   public name!: string;
 
-  @prop({ required: true, unique: true })
-  public email!: string;
-
-  @prop({ default: '' })
-  public avatar?: string;
+  @prop({trim: true, required: true })
+  public description!: string;
 
   @prop({ required: true })
-  public type!: UserType;
+  public date!: string;
 
   @prop({ required: true })
-  public password!: string;
+  public preview!: string;
 
-  constructor(userData: User) {
-    super();
+  @prop({ required: true })
+  public images!: string[];
 
-    this.email = userData.email;
-    this.name = userData.name;
-    this.avatar = userData.avatar;
-    this.type = userData.type;
-  }
+  @prop({ required: true })
+  public isPremium!: boolean;
 
-  public setPassword(password: string, salt: string) {
-    this.password = createSHA256(password, salt);
-  }
+  @prop({ required: true })
+  public rating!: number;
 
-  public getPassword() {
-    return this.password;
-  }
+  @prop({
+    required: true,
+    type: () => String,
+    enum: RentType
+  })
+  public type!: RentType;
+
+  @prop({ required: true })
+  public roomsNumber!: number;
+
+  @prop({ required: true })
+  public guestsNumber!: number;
+
+  @prop({ required: true })
+  public price!: number;
+
+  @prop({ required: true, default: [] })
+  public conveniences!: Convenience[];
+
+  @prop({ required: true, default: 0 })
+  public commentsNumber!: number;
+
+  @prop({
+    required: true,
+    set: ({ latitude, longitude }: Coordinates) => `${latitude};${longitude}`,
+    get: (val) => {
+      const [latitude, longitude] = val.split(';');
+      return { latitude, longitude };
+    }
+  })
+  public coordinates!: string;
+
+  @prop({
+    ref: UserEntity,
+    required: true
+  })
+  public userId!: Ref<UserEntity>;
 }
 
-export const UserModel = getModelForClass(UserEntity);
+export const OfferModel = getModelForClass(OfferEntity);

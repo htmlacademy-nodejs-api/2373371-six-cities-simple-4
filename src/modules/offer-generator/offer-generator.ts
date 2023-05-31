@@ -44,14 +44,14 @@ export class OfferGenerator implements OfferGeneratorInterface {
     const price = generateRandomValue(CONSTRAINS.minPrice, CONSTRAINS.maxPrice).toString();
     const conveniencesList: Conveniences[] = ['Breakfast', 'Air conditioning', 'Fridge', 'Towels', 'Laptop friendly workspace', 'Baby seat', 'Washer'];
     const conveniences = getRandomItems(conveniencesList).join(';');
-    const authorId = getRandomItem(this.mockData.authors);
+    const userId = getRandomItem(this.mockData.authors);
     const commentsNumber = generateRandomValue(CONSTRAINS.minComments, CONSTRAINS.maxComments);
     const coordinates = CITY_TO_COORDINATES[city as Cities].join(';');
 
     return [
       name, description, date, city, preview,
       images, isPremium, rating, type, roomsNumber,
-      guestsNumber, price, conveniences, authorId, commentsNumber,
+      guestsNumber, price, conveniences, userId, commentsNumber,
       coordinates,
     ].join('\t');
   }

@@ -1,1 +1,3 @@
-export type Convenience
+export type Convenience = {
+  name: string;
+}

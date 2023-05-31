@@ -1,13 +1,48 @@
-import mongoose from 'mongoose';
-import { User } from '../../types/user.type.js';
+import { User, UserType } from '../../types/user.type.js';
+import typegoose, { defaultClasses, getModelForClass, modelOptions } from '@typegoose/typegoose';
+import { createSHA256 } from '../../helpers/index.js';
 
-export interface UserDocument extends User, mongoose.Document {}
+const { prop } = typegoose;
 
-const userSchema = new mongoose.Schema({
-  email: String,
-  avatarPath: String,
-  firstname: String,
-  lastname: String,
-});
+export interface UserEntity extends defaultClasses.Base {}
 
-export const UserModel = mongoose.model<UserDocument>('User', userSchema);
+@modelOptions({
+  schemaOptions: {
+    collection: 'users'
+  }
+})
+export class UserEntity extends defaultClasses.TimeStamps implements User {
+  @prop({ required: true, default: '' })
+  public name!: string;
+
+  @prop({ required: true, unique: true })
+  public email!: string;
+
+  @prop({ default: '' })
+  public avatar?: string;
+
+  @prop({ required: true })
+  public type!: UserType;
+
+  @prop({ required: true })
+  public password!: string;
+
+  constructor(userData: User) {
+    super();
+
+    this.email = userData.email;
+    this.name = userData.name;
+    this.avatar = userData.avatar;
+    this.type = userData.type;
+  }
+
+  public setPassword(password: string, salt: string) {
+    this.password = createSHA256(password, salt);
+  }
+
+  public getPassword() {
+    return this.password;
+  }
+}
+
+export const UserModel = getModelForClass(UserEntity);
