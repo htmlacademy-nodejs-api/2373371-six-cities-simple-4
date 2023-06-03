@@ -14,8 +14,8 @@ export default class CreateOfferDto {
   roomsNumber!: number;
   guestsNumber!: number;
   price!: number;
-  conveniences!: Conveniences[];
+  conveniences?: Conveniences[];
   userId!: string;
-  commentsNumber!: number;
+  commentsNumber?: number;
   coordinates!: Coordinates;
 }
