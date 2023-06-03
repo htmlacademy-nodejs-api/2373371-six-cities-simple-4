@@ -1,10 +1,10 @@
 import { Service } from '../../types/service.js';
-import { LoggerInterface } from '../../services/logger/logger.interface';
+import { LoggerInterface } from '../logger/logger.interface';
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
-import CreateOfferDto from './dto/create-offer.dto.js';
+import CreateOfferDto from './dto/create-offer.dto';
 import { OfferEntity } from './offer.entity.js';
-import { OfferServiceInterface } from './offer-service.interface.js';
+import { OfferServiceInterface } from './offer-service.interface';
 
 @injectable()
 export default class OfferService implements OfferServiceInterface {

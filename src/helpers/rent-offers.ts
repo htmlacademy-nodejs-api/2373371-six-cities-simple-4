@@ -1,5 +1,5 @@
-import { Cities } from '../types/city.type';
-import { Conveniences, RentOffer, RentType } from '../types/rent-offer.type';
+import { Cities } from '../types/city.type.js';
+import { Conveniences, RentOffer, RentType } from '../types/rent-offer.type.js';
 
 export function createRentOffer(offerData: string): RentOffer {
   const [

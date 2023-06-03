@@ -1,4 +1,4 @@
-import { Cities } from '../types/city.type';
+import { Cities } from '../types/city.type.js';
 
 export const CITY_TO_COORDINATES: Record<Cities, [string, string]> = {
   Amsterdam: ['52.370216', '4.895168'],

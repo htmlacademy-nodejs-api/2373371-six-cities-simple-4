@@ -1,6 +1,6 @@
 import { CliCommandInterface } from './cli-command.interface';
 import { Command } from '../../constants/cli.js';
-import { MockData } from '../../types/mock-data.type';
+import { MockData } from '../../types/mock-data.type.js';
 import got from 'got';
 import { OfferGenerator } from '../../modules/offer-generator/offer-generator.js';
 import TSVWriter from '../file-writer/tsv-writer.js';
