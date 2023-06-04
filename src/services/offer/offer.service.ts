@@ -7,6 +7,7 @@ import { OfferEntity } from './offer.entity.js';
 import { OfferServiceInterface } from './offer-service.interface.js';
 import UpdateOfferDto from './dto/update-offer.dto.js';
 import { SortType } from '../../types/sort-type.enum.js';
+import { DEFAULT_OFFER_COUNT } from './offer.constants.js';
 
 @injectable()
 export default class OfferService implements OfferServiceInterface {
@@ -25,14 +26,15 @@ export default class OfferService implements OfferServiceInterface {
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findById(offerId)
-      .populate(['userId'])
+      .populate(['userId', 'cityId'])
       .exec();
   }
 
   public async find(): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
-      .populate(['userId'])
+      .populate(['userId', 'cityId'])
+      .limit(DEFAULT_OFFER_COUNT)
       .exec();
   }
 
@@ -45,7 +47,7 @@ export default class OfferService implements OfferServiceInterface {
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findByIdAndUpdate(offerId, dto, { new: true })
-      .populate(['userId'])
+      .populate(['userId', 'cityId'])
       .exec();
   }
 
@@ -66,7 +68,7 @@ export default class OfferService implements OfferServiceInterface {
       .find()
       .sort({ createdAt: SortType.Down })
       .limit(count)
-      .populate(['userId'])
+      .populate(['userId', 'cityId'])
       .exec();
   }
 
@@ -75,7 +77,7 @@ export default class OfferService implements OfferServiceInterface {
       .find()
       .sort({ commentCount: SortType.Down })
       .limit(count)
-      .populate(['userId'])
+      .populate(['userId', 'cityId'])
       .exec();
   }
 }

@@ -1,7 +1,8 @@
 import typegoose, { defaultClasses, getModelForClass, modelOptions, Ref } from '@typegoose/typegoose';
-import { Coordinates, RentType } from '../../types/rent-offer.type.js';
+import { RentType } from '../../types/rent-offer.type.js';
 import { Convenience } from '../../types/convenience.type.js';
 import { UserEntity } from '../user/user.entity.js';
+import { CityEntity } from '../citiy/city.entity.js';
 
 const { prop } = typegoose;
 
@@ -50,21 +51,17 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true })
   public price!: number;
 
+  @prop({
+    ref: CityEntity,
+    required: true,
+  })
+  public cityId!: Ref<CityEntity>;
+
   @prop({ required: true, default: [], type: [String] })
   public conveniences!: Convenience[];
 
   @prop({ required: true, default: 0 })
   public commentsNumber!: number;
-
-  @prop({
-    required: true,
-    set: ({ latitude, longitude }: Coordinates) => `${latitude};${longitude}`,
-    get: (val) => {
-      const [latitude, longitude] = val.split(';');
-      return { latitude, longitude };
-    }
-  })
-  public coordinates!: string;
 
   @prop({
     ref: UserEntity,

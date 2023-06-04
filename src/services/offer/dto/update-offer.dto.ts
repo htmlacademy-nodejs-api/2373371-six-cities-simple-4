@@ -1,11 +1,10 @@
-import { Conveniences, Coordinates, RentType } from '../../../types/rent-offer.type.js';
-import { Cities } from '../../../types/city.type.js';
+import { Coordinates, RentType } from '../../../types/rent-offer.type.js';
 
 export default class UpdateOfferDto {
   name?: string;
   description?: string;
   date?: string;
-  city?: Cities;
+  cityId?: string;
   preview?: string;
   images?: string[];
   isPremium?: boolean;
@@ -14,6 +13,5 @@ export default class UpdateOfferDto {
   roomsNumber?: number;
   guestsNumber?: number;
   price?: number;
-  conveniences?: Conveniences[];
   coordinates?: Coordinates;
 }
