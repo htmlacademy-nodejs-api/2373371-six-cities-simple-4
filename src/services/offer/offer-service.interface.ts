@@ -11,4 +11,5 @@ export interface OfferServiceInterface {
   findNew(count: number): Promise<DocumentType<OfferEntity>[]>;
   findDiscussed(count: number): Promise<DocumentType<OfferEntity>[]>;
   incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null>;
+  updateRating(offerId: string): Promise<DocumentType<OfferEntity> | null>;
 }

@@ -1,7 +1,7 @@
 import { Service } from '../../types/service.js';
 import { LoggerInterface } from '../logger/logger.interface.js';
 import { inject, injectable } from 'inversify';
-import { DocumentType, types } from '@typegoose/typegoose';
+import { DocumentType, mongoose, types } from '@typegoose/typegoose';
 import CreateOfferDto from './dto/create-offer.dto.js';
 import { OfferEntity } from './offer.entity.js';
 import { OfferServiceInterface } from './offer-service.interface.js';
@@ -79,5 +79,38 @@ export default class OfferService implements OfferServiceInterface {
       .limit(count)
       .populate(['userId', 'cityId'])
       .exec();
+  }
+
+  public updateRating(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+    console.log(offerId);
+
+    const mongoOfferId = new mongoose.Types.ObjectId(offerId);
+
+    return this.offerModel
+      .aggregate([
+        // find only offer with _id of ${offerId}
+        { $match: { _id: mongoOfferId } },
+        // add comments related to this offer to the offer document
+        {
+          $lookup: {
+            from: 'comments',
+            pipeline: [
+              // select only comments for ${offerId}
+              { $match: { offerId: mongoOfferId } },
+              { $project: { rating: true } },
+            ],
+            as: 'comments',
+          }
+        },
+        // set average rating to the rating field.
+        {
+          $set: {
+            rating: {
+              $avg: '$comments.rating',
+            }
+          }
+        },
+        { $unset: 'comments' },
+      ]).exec() as unknown as Promise<null>;
   }
 }

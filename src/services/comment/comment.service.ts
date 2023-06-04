@@ -4,6 +4,7 @@ import { CommentServiceInterface } from './comment-service.interface.js';
 import CreateCommentDto from './dto/create-comment.dto.js';
 import { CommentEntity } from './comment.entity.js';
 import { Service } from '../../types/service.js';
+import UpdateCommentDto from './dto/update-comment.dto';
 
 @injectable()
 export default class CommentService implements CommentServiceInterface {
@@ -16,17 +17,24 @@ export default class CommentService implements CommentServiceInterface {
     return comment.populate('userId');
   }
 
-  public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]> {
+  public async findByCommentId(commentId: string): Promise<DocumentType<CommentEntity>[]> {
     return this.commentModel
-      .find({ offerId })
+      .find({ commentId })
       .populate('userId');
   }
 
-  public async deleteByOfferId(offerId: string): Promise<number> {
+  public async deleteByCommentId(commentId: string): Promise<number> {
     const result = await this.commentModel
-      .deleteMany({ offerId })
+      .deleteMany({ commentId })
       .exec();
 
     return result.deletedCount;
+  }
+
+  public updateById(commentId: string, dto: UpdateCommentDto): Promise<DocumentType<CommentEntity> | null> {
+    return this.commentModel
+      .findByIdAndUpdate(commentId, dto, { new: true })
+      .populate(['userId'])
+      .exec();
   }
 }
