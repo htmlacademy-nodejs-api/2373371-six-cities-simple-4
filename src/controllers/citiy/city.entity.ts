@@ -14,10 +14,7 @@ export class CityEntity extends defaultClasses.TimeStamps {
   @prop({ required: true })
   public name!: string;
 
-  @prop({
-    required: true,
-    // type: Object,
-  })
+  @prop({ required: true })
   public coordinates!: Coordinates;
 }
 
