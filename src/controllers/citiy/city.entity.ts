@@ -14,15 +14,8 @@ export class CityEntity extends defaultClasses.TimeStamps {
   @prop({ required: true })
   public name!: string;
 
-  @prop({
-    required: true,
-    set: ({ latitude, longitude }: Coordinates) => `${latitude};${longitude}`,
-    get: (val) => {
-      const [latitude, longitude] = val.split(';');
-      return { latitude, longitude };
-    }
-  })
-  public coordinates!: string;
+  @prop({ required: true })
+  public coordinates!: Coordinates;
 }
 
 export const CityModel = getModelForClass(CityEntity);

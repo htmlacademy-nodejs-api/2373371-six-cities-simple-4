@@ -1,5 +1,5 @@
 import { Service } from '../../types/service.js';
-import { LoggerInterface } from '../logger/logger.interface.js';
+import { LoggerInterface } from '../../services/logger/logger.interface.js';
 import { inject, injectable } from 'inversify';
 import { DocumentType, mongoose, types } from '@typegoose/typegoose';
 import CreateOfferDto from './dto/create-offer.dto.js';
@@ -18,23 +18,17 @@ export default class OfferService implements OfferServiceInterface {
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
     const result = await this.offerModel.create(dto);
+    const populated = await result.populate(['userId', 'cityId']);
+
     this.logger.info(`New offer created: ${dto.name}`);
 
-    return result;
+    return populated;
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findById(offerId)
       .populate(['userId', 'cityId'])
-      .exec();
-  }
-
-  public async find(): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel
-      .find()
-      .populate(['userId', 'cityId'])
-      .limit(DEFAULT_OFFER_COUNT)
       .exec();
   }
 
@@ -63,11 +57,10 @@ export default class OfferService implements OfferServiceInterface {
       }}).exec();
   }
 
-  public async findNew(count: number): Promise<DocumentType<OfferEntity>[]> {
+  public async find(limit?: number): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
-      .sort({ createdAt: SortType.Down })
-      .limit(count)
+      .limit(limit ?? DEFAULT_OFFER_COUNT)
       .populate(['userId', 'cityId'])
       .exec();
   }
@@ -81,7 +74,7 @@ export default class OfferService implements OfferServiceInterface {
       .exec();
   }
 
-  public updateRating(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+  public updateRating(offerId: string): Promise<DocumentType<OfferEntity>[] | null> {
     console.log(offerId);
 
     const mongoOfferId = new mongoose.Types.ObjectId(offerId);
@@ -111,6 +104,6 @@ export default class OfferService implements OfferServiceInterface {
           }
         },
         { $unset: 'comments' },
-      ]).exec() as unknown as Promise<null>;
+      ]).exec();
   }
 }

@@ -1,6 +1,6 @@
 import { DocumentType } from '@typegoose/typegoose';
-import CreateCommentDto from './dto/create-comment.dto.js';
-import { CommentEntity } from './comment.entity.js';
+import CreateCommentDto from './dto/create-comment.dto';
+import { CommentEntity } from './comment.entity';
 import UpdateCommentDto from './dto/update-comment.dto';
 
 export interface CommentServiceInterface {

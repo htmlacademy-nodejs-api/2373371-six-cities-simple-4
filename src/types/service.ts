@@ -11,4 +11,9 @@ export const Service = {
   CommentModel: Symbol.for('CommentModel'),
   CityService: Symbol.for('CityService'),
   CityModel: Symbol.for('CityModel'),
+  CityController: Symbol.for('CityController'),
+  OfferController: Symbol.for('OfferController'),
+  UserController: Symbol.for('UserController'),
+  CommentController: Symbol.for('CommentController'),
+  ExceptionFilter: Symbol.for('ExceptionFilter'),
 } as const;

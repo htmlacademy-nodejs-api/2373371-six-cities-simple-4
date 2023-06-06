@@ -1,9 +1,9 @@
-import {DocumentType} from '@typegoose/typegoose/lib/types.js';
-import CreateUserDto from './dto/create-user.dto';
-import {UserServiceInterface} from './user-service.interface';
+import { DocumentType } from '@typegoose/typegoose/lib/types.js';
+import CreateUserDto from './dto/create-user.dto.js';
+import { UserServiceInterface } from './user-service.interface.js';
 import { inject, injectable } from 'inversify';
 import { Service } from '../../types/service.js';
-import { LoggerInterface } from '../logger/logger.interface';
+import { LoggerInterface } from '../../services/logger/logger.interface.js';
 import { UserEntity } from './user.entity.js';
 import { types } from '@typegoose/typegoose';
 
