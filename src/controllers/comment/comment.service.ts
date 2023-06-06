@@ -4,7 +4,7 @@ import { CommentServiceInterface } from './comment-service.interface.js';
 import CreateCommentDto from './dto/create-comment.dto.js';
 import { CommentEntity } from './comment.entity.js';
 import { Service } from '../../types/service.js';
-import UpdateCommentDto from './dto/update-comment.dto';
+import UpdateCommentDto from './dto/update-comment.dto.js';
 
 @injectable()
 export default class CommentService implements CommentServiceInterface {

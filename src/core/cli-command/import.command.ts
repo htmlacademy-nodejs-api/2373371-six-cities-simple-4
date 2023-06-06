@@ -4,12 +4,12 @@ import TsvReader from '../file-reader/tsv-reader.js';
 import { createRentOffer } from '../../helpers/rent-offers.js';
 import chalk from 'chalk';
 import { getErrorMessage, getMongoURI } from '../../helpers/index.js';
-import { OfferServiceInterface } from '../../services/offer/offer-service.interface.js';
+import { OfferServiceInterface } from '../../controllers/offer/offer-service.interface.js';
 import { DatabaseClientInterface } from '../database-client/database-client.interface.js';
 import { LoggerInterface } from '../../services/logger/logger.interface.js';
 import ConsoleLoggerService from '../../services/logger/console.service.js';
-import OfferService from '../../services/offer/offer.service.js';
-import { OfferModel } from '../../services/offer/offer.entity.js';
+import OfferService from '../../controllers/offer/offer.service.js';
+import { OfferModel } from '../../controllers/offer/offer.entity.js';
 import MongoClientService from '../database-client/mongo-client.service.js';
 import { RentOffer } from '../../types/rent-offer.type.js';
 
