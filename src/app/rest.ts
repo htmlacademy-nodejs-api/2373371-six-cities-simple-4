@@ -61,6 +61,10 @@ export class Application {
   private async _initMiddleware() {
     this.logger.info('Global middleware initialization…');
     this.expressApp.use(express.json());
+    this.expressApp.use(
+      '/upload',
+      express.static(this.config.get('UPLOAD_DIRECTORY'))
+    );
     this.logger.info('Global middleware initialization completed');
   }
 
