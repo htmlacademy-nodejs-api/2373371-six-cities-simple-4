@@ -21,6 +21,7 @@ export class Application {
     @inject(Service.CityController) private readonly cityController: ControllerInterface,
     @inject(Service.UserController) private readonly userController: ControllerInterface,
     @inject(Service.OfferController) private readonly offerController: ControllerInterface,
+    @inject(Service.CommentController) private readonly commentController: ControllerInterface,
     @inject(Service.ExceptionFilter) private readonly exceptionFilter: ExceptionFilterInterface,
   ) {
     this.expressApp = express();
@@ -53,6 +54,7 @@ export class Application {
     this.expressApp.use('/cities', this.cityController.router);
     this.expressApp.use('/users', this.userController.router);
     this.expressApp.use('/offers', this.offerController.router);
+    this.expressApp.use('/comments', this.commentController.router);
     this.logger.info('Controller initialization completed');
   }
 

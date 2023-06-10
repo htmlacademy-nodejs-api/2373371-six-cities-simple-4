@@ -13,6 +13,8 @@ import { ConfigInterface } from '../../services/config/config.types.js';
 import { RestSchema } from '../../services/config/rest.schema.js';
 import { fillDTO } from '../../helpers/index.js';
 import UserRdo from './rdo/user.rdo.js';
+import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middleware.js';
+import LoginUserDto from './dto/login-user.dto.js';
 
 @injectable()
 export default class UserController extends Controller {
@@ -25,8 +27,8 @@ export default class UserController extends Controller {
 
     this.logger.info('Register routes for CityController…');
 
-    this.addRoute({ path: '/register', method: HttpMethod.Post, handler: this.register });
-    this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
+    this.addRoute({ path: '/register', method: HttpMethod.Post, handler: this.register, middlewares: [new ValidateDtoMiddleware(CreateUserDto)] });
+    this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login, middlewares: [new ValidateDtoMiddleware(LoginUserDto)] });
   }
 
   public async register ({ body }: GenericReq<CreateUserDto>, res: Response): Promise<void> {
