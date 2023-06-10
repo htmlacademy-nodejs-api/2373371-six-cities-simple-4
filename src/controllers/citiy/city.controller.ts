@@ -6,7 +6,7 @@ import { HttpMethod } from '../../types/http-method.enum.js';
 import { Request, Response } from 'express';
 import { CityServiceInterface } from './city-service.interface.js';
 import { fillDTO } from '../../helpers/index.js';
-import CityRdo from './rdo/city.rdo.js';
+import CityRdo from './rdo/city.rdo';
 import { UnknownRecord } from '../../types/util.js';
 import CreateCityDto from './dto/create-city.dto.js';
 import { StatusCodes } from 'http-status-codes';

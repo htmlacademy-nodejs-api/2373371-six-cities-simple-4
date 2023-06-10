@@ -8,4 +8,5 @@ export interface CommentServiceInterface {
   findByCommentId(commentId: string): Promise<DocumentType<CommentEntity>[]>;
   deleteByCommentId(commentId: string): Promise<number | null>;
   updateById(commentId: string, dto: UpdateCommentDto): Promise<DocumentType<CommentEntity> | null>;
+  findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]>;
 }
