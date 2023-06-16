@@ -1,5 +1,6 @@
-import express, { Express } from 'express';
+import cors from 'cors';
 import { inject, injectable } from 'inversify';
+import express, { Express } from 'express';
 
 import { LoggerInterface } from '../services/logger/logger.interface.js';
 import { Service } from '../types/service.js';
@@ -65,6 +66,7 @@ export class Application {
     this.expressApp.use('/upload', express.static(this.config.get('UPLOAD_DIRECTORY')));
     const authenticateMiddleware = new AuthenticateMiddleware(this.config.get('JWT_SECRET'));
     this.expressApp.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
+    this.expressApp.use(cors());
     this.logger.info('Global middleware initialization completed');
   }
 
