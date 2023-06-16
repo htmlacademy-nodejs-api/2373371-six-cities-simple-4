@@ -70,8 +70,7 @@ export default class CreateOfferDto {
   })
     conveniences?: Conveniences[];
 
-  @IsMongoId({message: 'userId field must be valid an id'})
-    userId!: string;
+  userId!: string;
 
   @IsInt({message: 'commentsNumber must be an integer'})
     commentsNumber?: number;

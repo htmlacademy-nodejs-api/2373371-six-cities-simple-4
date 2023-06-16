@@ -15,7 +15,8 @@ import CommentRdo from '../comment/rdo/comment.rdo.js';
 import { ValidateObjectIdMiddleware } from '../../core/middlewares/validate-objectid.middleware.js';
 import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middleware.js';
 import { DocumentExistsMiddleware } from '../../core/middlewares/document-exists.middleware.js';
-import UpdateOfferDto from './dto/update-offer.dto';
+import UpdateOfferDto from './dto/update-offer.dto.js';
+import { PrivateRouteMiddleware } from '../../core/middlewares/private-route.middleware.js';
 
 type ParamsGetOffer = {
   offerId: string;
@@ -30,8 +31,12 @@ export default class OfferController extends Controller {
   ) {
     super(logger);
 
-    this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.getAll });
+    this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.getAll, middlewares: [
+      new ValidateObjectIdMiddleware('offerId'),
+      new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+    ] });
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create, middlewares: [
+      new PrivateRouteMiddleware(),
       new ValidateObjectIdMiddleware('offerId'),
       new ValidateDtoMiddleware(CreateOfferDto)
     ] });
@@ -42,6 +47,7 @@ export default class OfferController extends Controller {
       ]});
     this.addRoute({ path: '/:offerId', method: HttpMethod.Delete, handler: this.delete,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]});
@@ -56,6 +62,7 @@ export default class OfferController extends Controller {
       method: HttpMethod.Patch,
       handler: this.update,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new ValidateDtoMiddleware(UpdateOfferDto),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
@@ -68,9 +75,10 @@ export default class OfferController extends Controller {
     this.ok(res, fillDTO(OfferRdo, offers));
   }
 
-  public async create({ body }: GenericReq<CreateOfferDto>, res: Response) {
-    const offers = await this.offerService.create(body);
-    this.created(res, fillDTO(OfferRdo, offers));
+  public async create({ body, user }: GenericReq<CreateOfferDto>, res: Response) {
+    const result = await this.offerService.create({ ...body, userId: user.id });
+    const offer = await this.offerService.findById(result.id);
+    this.created(res, fillDTO(OfferRdo, offer));
   }
 
   public async findOne({ params }: GenericReq<UnknownRecord, UnknownRecord, core.ParamsDictionary | ParamsGetOffer>, res: Response) {

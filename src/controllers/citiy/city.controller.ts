@@ -6,10 +6,12 @@ import { HttpMethod } from '../../types/http-method.enum.js';
 import { Request, Response } from 'express';
 import { CityServiceInterface } from './city-service.interface.js';
 import { fillDTO } from '../../helpers/index.js';
-import CityRdo from './rdo/city.rdo';
+import CityRdo from './rdo/city.rdo.js';
 import { UnknownRecord } from '../../types/util.js';
 import CreateCityDto from './dto/create-city.dto.js';
 import { StatusCodes } from 'http-status-codes';
+import { PrivateRouteMiddleware } from '../../core/middlewares/private-route.middleware.js';
+import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middleware.js';
 
 @injectable()
 export default class CityController extends Controller {
@@ -22,7 +24,11 @@ export default class CityController extends Controller {
     this.logger.info('Register routes for CityController…');
 
     this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
-    this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateCityDto)
+      ] });
   }
 
   public async index(_req: Request, res: Response) {

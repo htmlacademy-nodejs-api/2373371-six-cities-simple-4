@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import UserRdo from '../../user/rdo/user.rdo';
+import UserRdo from '../../user/rdo/user.rdo.js';
 
 export default class CommentRdo {
   @Expose()
