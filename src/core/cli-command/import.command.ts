@@ -12,12 +12,20 @@ import OfferService from '../../controllers/offer/offer.service.js';
 import { OfferModel } from '../../controllers/offer/offer.entity.js';
 import MongoClientService from '../database-client/mongo-client.service.js';
 import { RentOffer } from '../../types/rent-offer.type.js';
+import UserService from '../../controllers/user/user.service.js';
+import { UserModel } from '../../controllers/user/user.entity.js';
+import { UserServiceInterface } from '../../controllers/user/user-service.interface.js';
+import { CityModel } from '../../controllers/citiy/city.entity.js';
+import { CityServiceInterface } from '../../controllers/citiy/city-service.interface.js';
+import CityService from '../../controllers/citiy/city.service.js';
 
 const DEFAULT_DB_PORT = '27017';
 
 export default class ImportCommand implements CliCommandInterface {
   public readonly name = Command.Import;
   private readonly offerService!: OfferServiceInterface;
+  private readonly cityService!: CityServiceInterface;
+  private readonly userService!: UserServiceInterface;
   private readonly databaseService!: DatabaseClientInterface;
   private readonly logger: LoggerInterface;
 
@@ -27,6 +35,8 @@ export default class ImportCommand implements CliCommandInterface {
 
     this.logger = new ConsoleLoggerService();
     this.offerService = new OfferService(this.logger, OfferModel);
+    this.userService = new UserService(this.logger, UserModel);
+    this.cityService = new CityService(CityModel);
     this.databaseService = new MongoClientService(this.logger);
   }
 
@@ -54,7 +64,18 @@ export default class ImportCommand implements CliCommandInterface {
   }
 
   private async saveOffer(offer: RentOffer) {
-    await this.offerService.create(offer);
+    const user = await this.userService.findByEmail(offer.userEmail);
+    const city = await this.cityService.findByName(offer.city);
+
+    if (!city || !user) {
+      throw new Error('Failed to save offer');
+    }
+
+    await this.offerService.create({
+      ...offer,
+      cityId: city.id,
+      userId: user.id,
+    });
   }
 
   private onComplete(count: number) {

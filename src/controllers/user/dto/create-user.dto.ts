@@ -1,5 +1,5 @@
 import { UserType } from '../../../types/user.type.js';
-import { IsEmail, IsEnum, IsString, Length } from 'class-validator';
+import { IsEmail, IsEnum, IsString, Length, IsOptional } from 'class-validator';
 
 export default class CreateUserDto {
   @IsString({message: 'name is required'})
@@ -9,7 +9,8 @@ export default class CreateUserDto {
   @IsEmail({}, {message: 'email must be valid address'})
   public email!: string;
 
-  @IsString({message: 'avatar is required'})
+  @IsOptional()
+  @IsString({message: 'avatar must be string'})
   public avatar?: string;
 
   @IsEnum(UserType, { message: 'type must by обычный или pro' })

@@ -31,10 +31,7 @@ export default class OfferController extends Controller {
   ) {
     super(logger);
 
-    this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.getAll, middlewares: [
-      new ValidateObjectIdMiddleware('offerId'),
-      new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
-    ] });
+    this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.getAll });
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create, middlewares: [
       new PrivateRouteMiddleware(),
       new ValidateObjectIdMiddleware('offerId'),
@@ -56,7 +53,6 @@ export default class OfferController extends Controller {
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ] });
-
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Patch,
@@ -83,13 +79,11 @@ export default class OfferController extends Controller {
 
   public async findOne({ params }: GenericReq<UnknownRecord, UnknownRecord, core.ParamsDictionary | ParamsGetOffer>, res: Response) {
     const offer = await this.offerService.findById(params.offerId);
-
     this.ok(res, fillDTO(OfferRdo, offer));
   }
 
   public async delete({ params }: GenericReq<UnknownRecord, UnknownRecord, core.ParamsDictionary | ParamsGetOffer>, res: Response) {
     const result = await this.offerService.deleteById(params.offerId);
-
     this.noContent(res, fillDTO(OfferRdo, result));
   }
 

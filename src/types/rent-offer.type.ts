@@ -35,7 +35,7 @@ export type RentOffer = {
   guestsNumber: number;
   price: number;
   conveniences: Conveniences[];
-  userId: string;
+  userEmail: string;
   commentsNumber: number;
   coordinates: Coordinates;
 }

@@ -14,10 +14,10 @@ export interface OfferEntity extends defaultClasses.Base {}
   }
 })
 export class OfferEntity extends defaultClasses.TimeStamps {
-  @prop({trim: true, required: true})
+  @prop({ trim: true, required: true })
   public name!: string;
 
-  @prop({trim: true, required: true })
+  @prop({ trim: true, required: true })
   public description!: string;
 
   @prop({ required: true })
@@ -32,7 +32,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true })
   public isPremium!: boolean;
 
-  @prop({ required: true })
+  @prop({ required: true, default: 0 })
   public rating!: number;
 
   @prop({
@@ -51,23 +51,23 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true })
   public price!: number;
 
-  @prop({
-    ref: CityEntity,
-    required: true,
-  })
-  public cityId!: Ref<CityEntity>;
-
   @prop({ required: true, default: [], type: [String] })
   public conveniences!: Convenience[];
-
-  @prop({ required: true, default: 0 })
-  public commentsNumber!: number;
 
   @prop({
     ref: UserEntity,
     required: true
   })
   public userId!: Ref<UserEntity>;
+
+  @prop({ required: true, default: 0 })
+  public commentsNumber!: number;
+
+  @prop({
+    ref: CityEntity,
+    required: true,
+  })
+  public cityId!: Ref<CityEntity>;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

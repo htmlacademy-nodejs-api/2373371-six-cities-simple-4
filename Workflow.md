@@ -38,6 +38,13 @@ npm run build
 
 Выполняет сборку проекта: удаляет ранее скомпилированный проект и компилирует заново.
 
+```bash
+npm run start:dev
+```
+
+Запускает проект в режими dev разработки
+
+
 #### Запустить json сервер
 
 ```
@@ -80,6 +87,39 @@ npm start
 
 Исходный код проекта: компоненты, модули и так далее. Структура директории `src` может быть произвольной.
 
+#### Директория `cli-comand`
+
+Запустить CLI
+
+```bash
+npm run ts ./src/main.cli.ts
+```
+
+команды:
+
+`--version`
+
+
+```bash
+npm run ts ./src/main.cli.ts -- --version
+```
+
+`--help`
+
+```bash
+npm run ts ./src/main.cli.ts -- --help
+```
+`--generate <n> <filepath> <url>`
+
+```bash
+npm run ts ./src/main.cli.ts -- --generate 5 ./mocks/test-data.tsv
+http://localhost:3123/api
+```
+
+```bash
+npm run ts ./src/main.cli.ts -- --import ./mocks/mock-data.tsv admin test localhost six-cities text
+```
+
 ### Файл `Readme.md`
 
 Инструкции по работе с учебным репозиторием.
@@ -87,6 +127,18 @@ npm start
 ### Файл `Contributing.md`
 
 Советы и инструкции по внесению изменений в учебный репозиторий.
+
+### Переменные окружения
+
+- `PORT=4000` - номер порта базы данных;
+- `SALT=text` - ключ для хеширования пароля;
+- `DB_USER=admin` - имя пользователя базы данных;
+- `DB_PASSWORD=admin` - пароль пользователя базы данных;
+- `DB_HOST=127.0.0.1` - IP-адрес сервера базы данных;
+- `DB_PORT=27017` - порт сервера базы данных;
+- `DB_NAME=six-cities` - имя базы данных;
+- `UPLOAD_DIRECTORY=example` - папка для загружаемых файлов;
+- `JWT_SECRET=secret` - секрет ключ для работы с токенами
 
 ### Остальное
 

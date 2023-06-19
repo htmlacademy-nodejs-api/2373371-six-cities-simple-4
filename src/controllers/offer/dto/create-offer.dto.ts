@@ -42,6 +42,8 @@ export default class CreateOfferDto {
     isPremium!: boolean;
 
   @IsNumber({ maxDecimalPlaces: 1 })
+  @Min(1)
+  @Max(5)
     rating!: number;
 
   @IsEnum(RentType, {message: 'type must be RentType'})
@@ -59,7 +61,7 @@ export default class CreateOfferDto {
 
   @IsInt({message: 'price must be an integer'})
   @Min(100, {message: 'Minimum price is 100'})
-  @Max(200000, {message: 'Maximum price is 100000'})
+  @Max(100000, {message: 'Maximum price is 100000'})
     price!: number;
 
 
