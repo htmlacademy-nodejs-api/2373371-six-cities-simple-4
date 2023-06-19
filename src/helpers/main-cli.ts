@@ -11,7 +11,7 @@ export async function generateCommands(): Promise<CliCommandInterface[]> {
     const fileNames = readdirSync(pathToCommandsDir, { encoding: 'utf-8' });
     const commandFilenamePattern = /.+\.command\.js$/i;
     const filteredFiles = fileNames.filter((fileName) => fileName.match(commandFilenamePattern));
-
+    console.log(filteredFiles);
     return await Promise.all(filteredFiles.map(async (filename) => {
       // eslint-disable-next-line node/no-unsupported-features/es-syntax
       const { default: Command } = await import(`${pathToCommandsDir}/${filename}`);

@@ -4,7 +4,6 @@ import { CommentServiceInterface } from './comment-service.interface.js';
 import CreateCommentDto from './dto/create-comment.dto.js';
 import { CommentEntity } from './comment.entity.js';
 import { Service } from '../../types/service.js';
-import UpdateCommentDto from './dto/update-comment.dto.js';
 
 @injectable()
 export default class CommentService implements CommentServiceInterface {
@@ -29,13 +28,6 @@ export default class CommentService implements CommentServiceInterface {
       .exec();
 
     return result.deletedCount;
-  }
-
-  public updateById(commentId: string, dto: UpdateCommentDto): Promise<DocumentType<CommentEntity> | null> {
-    return this.commentModel
-      .findByIdAndUpdate(commentId, dto, { new: true })
-      .populate(['userId'])
-      .exec();
   }
 
   public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]> {

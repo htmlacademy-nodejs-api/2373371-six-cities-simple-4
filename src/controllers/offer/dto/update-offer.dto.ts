@@ -2,11 +2,17 @@ import { RentType } from '../../../types/rent-offer.type.js';
 import {
   ArrayMaxSize,
   ArrayMinSize,
-  IsArray, IsBoolean,
-  IsDateString, IsEnum, IsInt,
-  IsMongoId, IsNumber, IsOptional,
-  IsString, Max,
-  MaxLength, Min,
+  IsArray,
+  IsBoolean,
+  IsDateString,
+  IsEnum,
+  IsInt,
+  IsMongoId,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
   MinLength
 } from 'class-validator';
 
@@ -44,10 +50,6 @@ export default class UpdateOfferDto {
     isPremium?: boolean;
 
   @IsOptional()
-  @IsNumber({ maxDecimalPlaces: 1 })
-    rating?: number;
-
-  @IsOptional()
   @IsEnum(RentType, {message: 'type must be RentType'})
     type?: RentType;
 
@@ -66,6 +68,6 @@ export default class UpdateOfferDto {
   @IsOptional()
   @IsInt({message: 'price must be an integer'})
   @Min(100, {message: 'Minimum price is 100'})
-  @Max(200000, {message: 'Maximum price is 100000'})
+  @Max(100000, {message: 'Maximum price is 100000'})
     price?: number;
 }

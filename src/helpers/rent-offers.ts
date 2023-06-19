@@ -16,7 +16,7 @@ export function createRentOffer(offerData: string): RentOffer {
     guestsNumber,
     price,
     conveniences,
-    userId,
+    userEmail,
     commentsNumber,
     coordinates,
   ] = offerData.split('\t');
@@ -38,7 +38,7 @@ export function createRentOffer(offerData: string): RentOffer {
     guestsNumber: Number(guestsNumber),
     price: Number(price),
     conveniences: parsedConveniences as Conveniences[],
-    userId,
+    userEmail,
     commentsNumber: Number(commentsNumber),
     coordinates: {
       latitude: Number(latitude),

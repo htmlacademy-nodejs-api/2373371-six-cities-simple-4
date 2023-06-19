@@ -38,7 +38,6 @@ export default class CommentController extends Controller {
     { body, user }: Request<object, object, CreateCommentDto>,
     res: Response
   ): Promise<void> {
-
     if (!await this.offerService.exists(body.offerId)) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
